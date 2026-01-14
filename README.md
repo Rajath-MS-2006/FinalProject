@@ -1,122 +1,128 @@
-📊 Real-Time Industry Insight & Strategic Intelligence System
+# 📊 Real-Time Industry Insight & Strategic Intelligence System  
+**Final Project – Infosys Springboard Internship 6.0 (B3)**
 
-Final Project – Infosys Springboard Internship 6.0 (B3)
+---
 
-🔍 Project Overview
+## 🔍 Project Overview
 
-The Real-Time Industry Insight & Strategic Intelligence System is a full-stack intelligent analytics platform designed to collect real-time industry news, analyze trends using NLP and AI, forecast future patterns, and notify stakeholders through automated alerts.
+The **Real-Time Industry Insight & Strategic Intelligence System** is an intelligent analytics platform that collects real-time industry news, analyzes trends using NLP and AI, forecasts future sentiment patterns, visualizes insights, and sends automated alerts.
 
-This system helps organizations make data-driven strategic decisions by transforming unstructured news data into actionable intelligence.
+It converts raw news data into **actionable strategic intelligence** for data-driven decision making.
 
-🚀 Features
+---
 
-Real-time news extraction using NewsAPI
+## 🚀 Features
 
-Text preprocessing and sentiment analysis using NLTK
+- Real-time news extraction & preprocessing  
+- Sentiment analysis using **NLTK**  
+- AI-based contextual insight generation  
+- Trend forecasting using **Prophet**  
+- Automated **Slack alerts**  
+- Interactive **Flask web dashboard**  
+- Data visualization (word clouds, timelines, sentiment plots)
 
-AI-powered contextual insight generation using Gemini API
+---
 
-Time-series forecasting using Facebook Prophet
+## 🛠 Tech Stack
 
-Automated Slack alerts based on predicted trends
+| Layer | Technologies |
+|-----|-------------|
+| Frontend | HTML, CSS, JavaScript |
+| Backend | Python, Flask |
+| NLP | NLTK |
+| AI | Gemini API |
+| Forecasting | Prophet |
+| Alerts | Slack Webhooks |
+| Visualization | Matplotlib, WordCloud |
+| Data Source | NewsAPI |
 
-Interactive web dashboard for visualization and control
+---
 
-RESTful backend services built using Flask
+## 🧠 System Workflow
 
-🛠 Tech Stack
-Layer	Technologies
-Frontend	HTML, CSS, JavaScript
-Backend	Python, Flask
-NLP	NLTK
-AI Integration	Gemini API
-Forecasting	Facebook Prophet
-Alerts	Slack Webhooks
-Data Source	NewsAPI
-🧠 System Workflow
+1. Collects real-time news using **NewsAPI**
+2. Cleans and analyzes sentiment using **NLTK**
+3. Generates AI insights using **Gemini**
+4. Stores processed data into CSV datasets
+5. Forecasts trends using **Prophet**
+6. Sends automated alerts to Slack
+7. Visualizes insights on the web dashboard
 
-Fetches real-time news from NewsAPI
+---
 
-Cleans and processes text using NLP
+## 📂 Project Structure
 
-Generates AI-based contextual insights via Gemini
-
-Forecasts upcoming trends using Prophet
-
-Sends automated alerts to Slack
-
-Displays results on the web dashboard
-
-📂 Project Structure
+FinalProject/
 ├── app.py
-├── config.py
-├── requirements.txt
-├── static/
-│   ├── css/
-│   └── js/
+├── data_fetch_and_analyse.py
+├── forecast_and_slack.py
+├── data/
+│ ├── raw.csv
+│ └── analyzed.csv
+├── plots/
+│ ├── distribution.png
+│ ├── prophet_sentiment_forecast.png
+│ ├── timeline.png
+│ └── wordcloud.png
 ├── templates/
-│   └── index.html
-├── modules/
-│   ├── news_fetcher.py
-│   ├── nlp_processor.py
-│   ├── ai_analyzer.py
-│   ├── forecast_engine.py
-│   └── slack_alerts.py
+│ ├── index.html
+│ └── data_view.html
 └── README.md
 
-⚙️ Installation & Setup
-1. Clone the repository
+---
+
+## ⚙️ Installation & Setup
+
+```bash
+# 1. Clone the repository
 git clone https://github.com/Rajath-MS-2006/FinalProject.git
 cd FinalProject
 
-2. Create virtual environment
+# 2. Create virtual environment
 python -m venv venv
-venv\Scripts\activate        # Windows
+venv\Scripts\activate    # Windows
 # OR
-source venv/bin/activate    # macOS / Linux
+source venv/bin/activate  # macOS / Linux
 
-3. Install dependencies
+# 3. Install dependencies
 pip install -r requirements.txt
 
-4. Configure API Keys
-
-Create a .env file in the root directory:
+# 4. Configure API Keys
+# Create a .env file in the project root and add:
 
 NEWS_API_KEY=your_newsapi_key
 GEMINI_API_KEY=your_gemini_key
 SLACK_WEBHOOK_URL=your_slack_webhook
 
-▶️ Run the Application
+## ▶ **Run the Application**
+```bash
 python app.py
-
-
 Open in browser:
-
 http://localhost:5000
 
 👨‍💻 Team Contribution
+Technical Team Member
 
-Served as Technical Team Member
+Implemented NLP, forecasting & Slack alert systems
 
-Designed system architecture
+Designed and integrated Flask dashboard
 
-Implemented NLP, AI integration, forecasting & full-stack modules
-
-Delivered final system during team presentation
+Delivered final working system
 
 🎓 Internship
-
 Infosys Springboard Internship 6.0 (B3)
 Project: Real-Time Industry Insight & Strategic Intelligence System
 
 ⭐ Future Enhancements
-
-Live industry dashboards
-
 Database integration (PostgreSQL / MongoDB)
+
+Live API dashboards
+
+Multi-platform alert systems
+
+Advanced forecasting models
 
 User authentication
 
-More ML forecasting models
-
-Multi-platform alert integrations
+yaml
+Copy code
