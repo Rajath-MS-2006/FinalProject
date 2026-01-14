@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Sentiment Data Explorer</title>
+
+    <!-- Libraries -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --glass-bg: rgba(255,255,255,0.75);
+            --glass-border: rgba(255,255,255,0.45);
+            --glass-shadow: 0 8px 32px rgba(0,0,0,0.12);
+
+            --primary: #4f46e5;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+        }
+
+        body {
+            background: linear-gradient(135deg, #6a0dad, #4f46e5);
+            min-height: 100vh;
+            font-family: "Inter", sans-serif;
+            color: #222;
+            padding-bottom: 60px;
+        }
+
+        .navbar-glass {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            box-shadow: var(--glass-shadow);
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .glass-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 18px;
+            padding: 24px;
+            box-shadow: var(--glass-shadow);
+            backdrop-filter: blur(12px);
+        }
+
+        /* Stats Box */
+        .stats-card {
+            background: white;
+            padding: 22px;
+            border-radius: 16px;
+            box-shadow: 0 6px 24px rgba(0,0,0,0.10);
+        }
+
+        /* Data table */
+        .data-table-box {
+            background: white;
+            padding: 0;
+            border-radius: 16px;
+            box-shadow: 0 6px 24px rgba(0,0,0,0.10);
+            overflow: hidden;
+        }
+
+        thead th {
+            background: linear-gradient(135deg, #6366f1, #4338ca);
+            color: white;
+            font-weight: 600;
+            padding: 14px;
+        }
+
+        tbody tr:hover {
+            background: #f3f4f6;
+        }
+
+        .sentiment-badge {
+            padding: 6px 12px;
+            border-radius: 14px;
+            font-weight: 600;
+            font-size: 0.8em;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .badge-positive { background: #10b981; color:white; }
+        .badge-neutral { background: #f59e0b; color:white; }
+        .badge-negative { background: #ef4444; color:white; }
+
+        .text-preview {
+            cursor: pointer;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 300px;
+        }
+
+        /* Tooltip bubble */
+        .preview-tooltip {
+            position: fixed;
+            background: white;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+            padding: 12px;
+            border-radius: 8px;
+            max-width: 340px;
+            font-size: 14px;
+            display: none;
+            z-index: 99999;
+        }
+
+        /* Pagination & controls */
+        .table-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+        }
+
+        .pagination button {
+            border: none;
+            background: #e5e7eb;
+            padding: 6px 12px;
+            margin: 0 4px;
+            border-radius: 6px;
+            transition: .2s;
+        }
+        .pagination button.active {
+            background: var(--primary);
+            color: white;
+            font-weight: 700;
+        }
+        .pagination button:hover {
+            background: #cbd5e1;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-glass mb-4">
+    <div class="container">
+        <a class="navbar-brand fw-bold text-dark" href="/">
+            <i class="fas fa-brain text-primary me-2"></i>AI Sentiment Dashboard
+        </a>
+        <a href="/" class="btn btn-primary">
+            <i class="fas fa-arrow-left me-2"></i>Back to Dashboard
+        </a>
+    </div>
+</nav>
+
+<div class="container">
+
+    <!-- Page Header -->
+    <div class="glass-card mb-4">
+        <h1 class="fw-bold">
+            <i class="fas fa-database text-primary me-2"></i>
+            Sentiment Data Explorer
+        </h1>
+        <p class="text-muted">Explore all collected AI sentiment data in a clean analytics view.</p>
+    </div>
+
+    <!-- Quick Stats -->
+    <div class="row mb-4">
+        <div class="col-md-3"><div class="stats-card text-center"><h3>{{ data|length }}</h3><p class="text-muted">Total Records</p></div></div>
+        <div class="col-md-3"><div class="stats-card text-center"><h3>{{ data|selectattr('label','equalto','positive')|list|length }}</h3><p class="text-muted">Positive</p></div></div>
+        <div class="col-md-3"><div class="stats-card text-center"><h3>{{ data|selectattr('label','equalto','neutral')|list|length }}</h3><p class="text-muted">Neutral</p></div></div>
+        <div class="col-md-3"><div class="stats-card text-center"><h3>{{ data|selectattr('label','equalto','negative')|list|length }}</h3><p class="text-muted">Negative</p></div></div>
+    </div>
+
+    <!-- Data Table -->
+    <div class="data-table-box">
+
+        <!-- Table Controls -->
+        <div class="table-controls">
+            <input id="searchInput" type="text" class="form-control w-50" placeholder="Search text, query, platform..." />
+            <button class="btn btn-success"><i class="fas fa-download me-1"></i><a href="/export_data" class="text-white text-decoration-none"> Export CSV</a></button>
+        </div>
+
+        <table class="table" id="sentimentTable">
+            <thead>
+                <tr>
+                    <th onclick="sortTable(0)">Platform</th>
+                    <th onclick="sortTable(1)">Timestamp</th>
+                    <th onclick="sortTable(2)">Query</th>
+                    <th onclick="sortTable(3)">Sentiment</th>
+                    <th onclick="sortTable(4)">Score</th>
+                    <th>Text Preview</th>
+                    <th>Link</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for row in data %}
+                <tr>
+                    <td>{{ row.platform }}</td>
+                    <td>{{ row.timestamp }}</td>
+                    <td>{{ row.query }}</td>
+
+                    <td>
+                        {% if row.label == 'positive' %}
+                        <span class="sentiment-badge badge-positive"><i class="fas fa-smile"></i> Positive</span>
+                        {% elif row.label == 'negative' %}
+                        <span class="sentiment-badge badge-negative"><i class="fas fa-frown"></i> Negative</span>
+                        {% else %}
+                        <span class="sentiment-badge badge-neutral"><i class="fas fa-meh"></i> Neutral</span>
+                        {% endif %}
+                    </td>
+
+                    <td>{{ "%.2f"|format(row.score|float) }}</td>
+
+                    <td>
+                        <span class="text-preview" title="{{ row.text }}">{{ row.text[:70] }}{% if row.text|length > 70 %}...{% endif %}</span>
+                    </td>
+
+                    <td>
+                        {% if row.url and row.url != 'nan' %}
+                        <a href="{{ row.url }}" target="_blank" class="btn btn-sm btn-outline-primary">
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                        {% else %}
+                        <span class="text-muted">None</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- Pagination -->
+        <div class="pagination text-center py-3" id="pagination"></div>
+
+    </div>
+
+</div>
+
+<!-- Tooltip Element -->
+<div class="preview-tooltip" id="tooltip"></div>
+
+<!-- Scripts -->
+<script>
+    // ---------- Tooltip ----------
+    const tooltip = document.getElementById("tooltip");
+
+    document.querySelectorAll('.text-preview').forEach(el => {
+        el.addEventListener('mouseenter', e => {
+            tooltip.innerText = el.title;
+            tooltip.style.display = 'block';
+        });
+        el.addEventListener('mousemove', e => {
+            tooltip.style.left = e.clientX + 15 + 'px';
+            tooltip.style.top = e.clientY + 15 + 'px';
+        });
+        el.addEventListener('mouseleave', () => {
+            tooltip.style.display = 'none';
+        });
+    });
+
+    // ---------- Search Filter ----------
+    document.getElementById("searchInput").addEventListener("keyup", () => {
+        let value = searchInput.value.toLowerCase();
+        document.querySelectorAll("#sentimentTable tbody tr").forEach(row => {
+            row.style.display = row.innerText.toLowerCase().includes(value) ? "" : "none";
+        });
+    });
+
+    // ---------- Table Sorting ----------
+    function sortTable(idx) {
+        let table = document.getElementById("sentimentTable");
+        let rows = Array.from(table.rows).slice(1);
+        let asc = table.dataset.sortOrder !== "asc";
+
+        rows.sort((a, b) =>
+            asc
+                ? a.cells[idx].innerText.localeCompare(b.cells[idx].innerText)
+                : b.cells[idx].innerText.localeCompare(a.cells[idx].innerText)
+        );
+
+        table.tBodies[0].append(...rows);
+        table.dataset.sortOrder = asc ? "asc" : "desc";
+    }
+
+    // ---------- Pagination ----------
+    const rowsPerPage = 15;
+    const tableBody = document.querySelector("#sentimentTable tbody");
+    const rows = [...tableBody.querySelectorAll("tr")];
+    const pageCount = Math.ceil(rows.length / rowsPerPage);
+    const pagination = document.getElementById("pagination");
+
+    function renderPage(page) {
+        tableBody.innerHTML = "";
+        rows.slice((page-1)*rowsPerPage, page*rowsPerPage).forEach(r => tableBody.appendChild(r));
+
+        pagination.innerHTML = "";
+        for (let i=1; i<=pageCount; i++) {
+            let btn = document.createElement("button");
+            btn.innerText = i;
+            btn.classList.toggle("active", i === page);
+            btn.onclick = () => renderPage(i);
+            pagination.appendChild(btn);
+        }
+    }
+
+    renderPage(1);
+</script>
+
+</body>
+</html>

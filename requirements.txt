@@ -1,0 +1,8 @@
+flask
+python-dotenv
+pandas
+requests
+google-generativeai
+wordcloud
+matplotlib
+prophet
