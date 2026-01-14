@@ -52,6 +52,7 @@ It converts raw news data into **actionable strategic intelligence** for data-dr
 
 ## 📂 Project Structure
 
+```text
 FinalProject/
 ├── app.py
 ├── data_fetch_and_analyse.py
@@ -68,6 +69,7 @@ FinalProject/
 │   ├── index.html
 │   └── data_view.html
 └── README.md
+```
 
 ---
 
