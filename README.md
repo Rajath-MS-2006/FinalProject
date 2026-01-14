@@ -94,13 +94,14 @@ NEWS_API_KEY=your_newsapi_key
 GEMINI_API_KEY=your_gemini_key
 SLACK_WEBHOOK_URL=your_slack_webhook
 
-## ▶ **Run the Application**
-```bash
+---
+▶️Run the Application
 python app.py
 Open in browser:
 http://localhost:5000
 
 👨‍💻 Team Contribution
+
 Technical Team Member
 
 Implemented NLP, forecasting & Slack alert systems
@@ -110,10 +111,12 @@ Designed and integrated Flask dashboard
 Delivered final working system
 
 🎓 Internship
+
 Infosys Springboard Internship 6.0 (B3)
 Project: Real-Time Industry Insight & Strategic Intelligence System
 
 ⭐ Future Enhancements
+
 Database integration (PostgreSQL / MongoDB)
 
 Live API dashboards
@@ -123,6 +126,3 @@ Multi-platform alert systems
 Advanced forecasting models
 
 User authentication
-
-yaml
-Copy code
