@@ -66,7 +66,9 @@ This system helps organizations make **data-driven strategic decisions** by tran
 │   ├── forecast_engine.py
 │   └── slack_alerts.py
 └── README.md
-⚙️ Installation & Setup
+---
+
+##⚙️ Installation & Setup
 1. Clone the repository
 git clone https://github.com/Rajath-MS-2006/FinalProject.git
 cd FinalProject
