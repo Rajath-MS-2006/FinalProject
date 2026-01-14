@@ -57,16 +57,16 @@ FinalProject/
 ├── data_fetch_and_analyse.py
 ├── forecast_and_slack.py
 ├── data/
-│ ├── raw.csv
-│ └── analyzed.csv
+│   ├── raw.csv
+│   └── analyzed.csv
 ├── plots/
-│ ├── distribution.png
-│ ├── prophet_sentiment_forecast.png
-│ ├── timeline.png
-│ └── wordcloud.png
+│   ├── distribution.png
+│   ├── prophet_sentiment_forecast.png
+│   ├── timeline.png
+│   └── wordcloud.png
 ├── templates/
-│ ├── index.html
-│ └── data_view.html
+│   ├── index.html
+│   └── data_view.html
 └── README.md
 
 ---
@@ -74,55 +74,48 @@ FinalProject/
 ## ⚙️ Installation & Setup
 
 ```bash
-# 1. Clone the repository
 git clone https://github.com/Rajath-MS-2006/FinalProject.git
 cd FinalProject
-
-# 2. Create virtual environment
 python -m venv venv
-venv\Scripts\activate    # Windows
-# OR
-source venv/bin/activate  # macOS / Linux
-
-# 3. Install dependencies
+venv\Scripts\activate
 pip install -r requirements.txt
-
-# 4. Configure API Keys
-# Create a .env file in the project root and add:
 
 NEWS_API_KEY=your_newsapi_key
 GEMINI_API_KEY=your_gemini_key
 SLACK_WEBHOOK_URL=your_slack_webhook
+```
 
 ---
-▶️Run the Application
+
+## ▶️ Run the Application
+
+```bash
 python app.py
-Open in browser:
-http://localhost:5000
+```
 
-👨‍💻 Team Contribution
+Open in browser: http://localhost:5000
 
-Technical Team Member
+---
 
-Implemented NLP, forecasting & Slack alert systems
+## 👨‍💻 Team Contribution
 
-Designed and integrated Flask dashboard
+- Technical Team Member  
+- Implemented NLP, forecasting & Slack alert systems  
+- Designed and integrated Flask dashboard  
+- Delivered final working system  
 
-Delivered final working system
+---
 
-🎓 Internship
+## 🎓 Internship
 
 Infosys Springboard Internship 6.0 (B3)
-Project: Real-Time Industry Insight & Strategic Intelligence System
 
-⭐ Future Enhancements
+---
 
-Database integration (PostgreSQL / MongoDB)
+## ⭐ Future Enhancements
 
-Live API dashboards
-
-Multi-platform alert systems
-
-Advanced forecasting models
-
-User authentication
+- Database integration (PostgreSQL / MongoDB)  
+- Live API dashboards  
+- Multi-platform alert systems  
+- Advanced forecasting models  
+- User authentication  
